@@ -35,7 +35,7 @@ fileToTS tvPairs = createTS times values
 
 showTVPair :: Show a => Int -> (Maybe a) -> String
 showTVPair time (Just value) = mconcat [show time,"|",show value,"\n"]
-showTVPair time Nothing = mconcat [show time,"|NS\n"]
+showTVPair time Nothing = mconcat [show time,"|NA\n"]
 
 instance Show a => Show (TS a) where
   show (TS times values) = mconcat rows
@@ -59,3 +59,68 @@ insertMaybePair :: Ord k => Map.Map k v -> (k, Maybe v) -> Map.Map k v
 insertMaybePair myMap (_,Nothing) = myMap
 -- 実際の値がある場合は Just コンテキストから取り出して Map に挿入する
 insertMaybePair myMap (key,(Just value)) = Map.insert key value myMap
+
+combineTS :: TS a -> TS a -> TS a
+combineTS (TS [] []) ts2 = ts2
+combineTS ts1 (TS [] []) = ts1
+combineTS (TS t1 v1) (TS t2 v2) = TS completeTimes combinedValues
+  where bothTimes = mconcat [t1,t2]
+        completeTimes = [(minimum t1) .. (maximum t2)]
+        tvMap = foldl insertMaybePair Map.empty (zip t1 v1)
+        updatedMap = foldl insertMaybePair tvMap (zip t2 v2)
+        combinedValues = map (\v -> Map.lookup v updatedMap) completeTimes
+
+instance Semigroup (TS a) where
+  (<>) = combineTS
+
+instance Monoid (TS a) where
+  mempty = TS [] []
+  mappend = (<>)
+
+tsAll :: TS Double
+tsAll = mconcat [ts1,ts2,ts3,ts4]
+
+mean :: (Real a) => [a] -> Double
+mean xs = total/count
+  where total = (realToFrac . sum) xs
+        count = (realToFrac . length) xs
+
+meanTS :: (Real a) => TS a -> Maybe Double
+meanTS (TS _ []) = Nothing
+meanTS (TS times values) = if all (== Nothing) values
+                           then Nothing
+                           else Just avg
+  where justVals = filter isJust values -- 値が「Justかどうか」のテストが必要
+        cleanVals = map (\(Just x) -> x) justVals
+        avg = mean cleanVals
+
+type CompareFunc a = (a -> a -> a)
+type TSCompareFunc a = ((Int, Maybe a)) -> (Int, Maybe a) -> (Int, Maybe a)
+
+makeTSCompare :: Eq a => CompareFunc a -> TSCompareFunc a
+-- newFuncを作成して返す
+makeTSCompare func = newFunc
+  -- where の中でもパターンマッチングが可能
+  where newFunc (i1, Nothing) (i2, Nothing) = (i1, Nothing)
+        -- どちらかまたは両方の値が Nothing んｐ場合に対処
+        newFunc (_, Nothing) (i, val) = (i, val)
+        newFunc (i, val) (_, Nothing) = (i,val)
+        -- 比較関数として動作し、完全なタプルだけ返す
+        newFunc (i1, Just val1) (i2, Just val2) = if (func val1 val2) == val1
+                                                  then (i1, Just val1)
+                                                  else (i2, Just val2)
+
+compareTS :: Eq a => (a -> a -> a) -> TS a -> Maybe (Int, Maybe a)
+compareTS func (TS [] []) = Nothing
+compareTS func (TS times values) = if all (== Nothing) values
+                                   then Nothing
+                                   else Just best
+  where pairs = zip times values
+        best = foldl (makeTSCompare func) (0, Nothing) pairs
+
+minTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+minTS = compareTS min
+
+
+maxTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+maxTS = compareTS max
