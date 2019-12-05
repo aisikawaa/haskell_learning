@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>/Users/atsushi/haskell_learning/cup.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><a class=annot href="#"><span class=annottext>GHC.Types.Module</span><span class='hs-definition'>cup</span></a> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>f1Oz</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-keyglyph'>\</span><a class=annot href="#"><span class=annottext>a##xo -&gt; b##xo</span><span class='hs-varid'>message</span></a> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>message</span> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz}</span><span class='hs-varid'>f1Oz</span></a>
+<span class=hs-linenum> 2: </span><a class=annot href="#"><span class=annottext>forall a##xo . (GHC.Integer.Type.Integer -&gt; a##xo) -&gt; a##xo</span><span class='hs-definition'>coffeeCup</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>cup</span> <a class=annot href="#"><span class=annottext>{v : GHC.Integer.Type.Integer | v == 12}</span><span class='hs-num'>12</span></a>
+<span class=hs-linenum> 3: </span><a class=annot href="#"><span class=annottext>forall a##xo b##xo . ((a##xo -&gt; a##xo) -&gt; b##xo) -&gt; b##xo</span><span class='hs-definition'>getOz</span></a> <a class=annot href="#"><span class=annottext>(a##xo -&gt; a##xo) -&gt; b##xo</span><span class='hs-varid'>aCup</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>aCup</span> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz}</span><span class='hs-layout'>(</span></a><span class='hs-keyglyph'>\</span><a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>f1Oz</span></a> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>f1Oz</span><span class='hs-layout'>)</span>
+<span class=hs-linenum> 4: </span>
+<span class=hs-linenum> 5: </span><a class=annot href="#"><span class=annottext>forall a##xo b##xo c##xo .
+(GHC.Classes.Ord&lt;[]&gt; a##xo, GHC.Num.Num&lt;[]&gt; a##xo) =&gt;
+((b##xo -&gt; b##xo) -&gt; a##xo) -&gt; a##xo -&gt; (a##xo -&gt; c##xo) -&gt; c##xo</span><span class='hs-definition'>drink</span></a> <a class=annot href="#"><span class=annottext>(a##xo -&gt; a##xo) -&gt; b##xo</span><span class='hs-varid'>aCup</span></a> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>ozDrank</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>if</span> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz - ozDrank
+              &amp;&amp; VV == ozDiff}</span><span class='hs-varid'>ozDiff</span></a> <span class='hs-varop'>&gt;=</span> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-num'>0</span></a>
+<span class=hs-linenum> 6: </span>                     <span class='hs-keyword'>then</span> <a class=annot href="#"><span class=annottext>{VV : forall a##xo b##xo .
+      a##xo -&gt; (a##xo -&gt; b##xo) -&gt; b##xo | VV == cup}</span><span class='hs-varid'>cup</span></a> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz - ozDrank
+              &amp;&amp; VV == ozDiff}</span><span class='hs-varid'>ozDiff</span></a>
+<span class=hs-linenum> 7: </span>                     <span class='hs-keyword'>else</span> <a class=annot href="#"><span class=annottext>{VV : forall a##xo b##xo .
+      a##xo -&gt; (a##xo -&gt; b##xo) -&gt; b##xo | VV == cup}</span><span class='hs-varid'>cup</span></a> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-num'>0</span></a>
+<span class=hs-linenum> 8: </span>  <span class='hs-keyword'>where</span> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>f1Oz</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>getOz</span></a> <a class=annot href="#"><span class=annottext>(a##xo -&gt; a##xo) -&gt; b##xo</span><span class='hs-varid'>aCup</span></a>
+<span class=hs-linenum> 9: </span>        <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz - ozDrank}</span><span class='hs-varid'>ozDiff</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == f1Oz}</span><span class='hs-varid'>f1Oz</span></a> <span class='hs-comment'>-</span> <a class=annot href="#"><span class=annottext>{VV : a##xo | VV == ozDrank}</span><span class='hs-varid'>ozDrank</span></a>
+<span class=hs-linenum>10: </span>
+<span class=hs-linenum>11: </span><a class=annot href="#"><span class=annottext>forall a##xo b##xo .
+(GHC.Classes.Eq&lt;[]&gt; a##xo, GHC.Num.Num&lt;[]&gt; a##xo) =&gt;
+((b##xo -&gt; b##xo) -&gt; a##xo) -&gt; GHC.Types.Bool</span><span class='hs-definition'>isEmpty</span></a> <a class=annot href="#"><span class=annottext>(a##xo -&gt; a##xo) -&gt; b##xo</span><span class='hs-varid'>aCup</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-varid'>getOz</span></a> <a class=annot href="#"><span class=annottext>(a##xo -&gt; a##xo) -&gt; b##xo</span><span class='hs-varid'>aCup</span></a> <span class='hs-varop'>==</span> <a class=annot href="#"><span class=annottext>a##xo</span><span class='hs-num'>0</span></a>
+</pre>
+</body>
+</html>
